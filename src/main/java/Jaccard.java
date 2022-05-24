@@ -9,25 +9,25 @@ import static java.util.stream.Collectors.*;
 
 public class Jaccard {
     private Basket basketOne;
-    private Basket basketTwo;
+    private List<String> compareList;
     private BigDecimal coefficient;
 
-    public Jaccard(Basket basketOne, Basket basketTwo) {
+    public Jaccard(Basket basketOne, List<String> compareList) {
         this.basketOne = basketOne;
-        this.basketTwo = basketTwo;
+        this.compareList = compareList;
         this.coefficient = getJaccardCoef();
     }
 
     private int getUnionListSize() {
         TreeSet<String> union = new TreeSet<String>(basketOne.items);
-        union.addAll(basketTwo.items);
+        union.addAll(compareList);
         System.out.println("Объединение:" + union);
         return union.size();
     }
 
     private int getIntersectionListSize() {
         TreeSet<String> intersection = new TreeSet<>(basketOne.items);
-        intersection.removeIf(item -> !basketTwo.items.contains(item));
+        intersection.removeIf(item -> !compareList.contains(item));
         System.out.println("Пересечение:" + intersection);
         return intersection.size();
     }
